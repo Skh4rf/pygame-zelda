@@ -5,7 +5,7 @@
             "name": "Python: File",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "S:/Schule/5chel/WDIC/pygame-zelda/code/main.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         }
