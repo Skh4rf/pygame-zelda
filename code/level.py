@@ -1,4 +1,6 @@
 import pygame 
+import pathlib
+import os
 from settings import *
 from tile import Tile
 from player import Player
@@ -11,6 +13,7 @@ from enemy import Enemy
 from particles import AnimationPlayer
 from magic import MagicPlayer
 from upgrade import Upgrade
+from gamemenu import GameMenu
 
 class Level:
 	def __init__(self):
@@ -34,6 +37,7 @@ class Level:
 		# user interface 
 		self.ui = UI()
 		self.upgrade = Upgrade(self.player)
+		self.gamemenu = GameMenu(self.player)
 
 		# particles
 		self.animation_player = AnimationPlayer()
@@ -41,14 +45,14 @@ class Level:
 
 	def create_map(self):
 		layouts = {
-			'boundary': import_csv_layout('../map/map_FloorBlocks.csv'),
-			'grass': import_csv_layout('../map/map_Grass.csv'),
-			'object': import_csv_layout('../map/map_Objects.csv'),
-			'entities': import_csv_layout('../map/map_Entities.csv')
+			'boundary': import_csv_layout(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'map/map_FloorBlocks.csv')),
+			'grass': import_csv_layout(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'map/map_Grass.csv')),
+			'object': import_csv_layout(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'map/map_Objects.csv')),
+			'entities': import_csv_layout(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'map/map_Entities.csv'))
 		}
 		graphics = {
-			'grass': import_folder('../graphics/Grass'),
-			'objects': import_folder('../graphics/objects')
+			'grass': import_folder(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'graphics/Grass')),
+			'objects': import_folder(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'graphics/objects'))
 		}
 
 		for style,layout in layouts.items():
@@ -137,11 +141,9 @@ class Level:
 		self.animation_player.create_particles(particle_type,pos,self.visible_sprites)
 
 	def add_exp(self,amount):
-
 		self.player.exp += amount
 
 	def toggle_menu(self):
-
 		self.game_paused = not self.game_paused 
 
 	def run(self):
@@ -149,7 +151,11 @@ class Level:
 		self.ui.display(self.player)
 		
 		if self.game_paused:
-			self.upgrade.display()
+			if self.upgrade.is_toggled:
+				self.upgrade.display() # Show the Upgrade Menu (Ingame-Menu)
+			elif self.gamemenu.is_toggled:
+				self.gamemenu.display() # Show the Settings Menu
+
 		else:
 			self.visible_sprites.update()
 			self.visible_sprites.enemy_update(self.player)
@@ -167,7 +173,7 @@ class YSortCameraGroup(pygame.sprite.Group):
 		self.offset = pygame.math.Vector2()
 
 		# creating the floor
-		self.floor_surf = pygame.image.load('../graphics/tilemap/ground.png').convert()
+		self.floor_surf = pygame.image.load(os.path.join(pathlib.Path(__file__).parent.parent.absolute(), "graphics/tilemap/ground.png"))
 		self.floor_rect = self.floor_surf.get_rect(topleft = (0,0))
 
 	def custom_draw(self,player):

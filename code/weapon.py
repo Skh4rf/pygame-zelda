@@ -1,4 +1,5 @@
 import pygame 
+import os, pathlib
 
 class Weapon(pygame.sprite.Sprite):
 	def __init__(self,player,groups):
@@ -7,7 +8,7 @@ class Weapon(pygame.sprite.Sprite):
 		direction = player.status.split('_')[0]
 
 		# graphic
-		full_path = f'../graphics/weapons/{player.weapon}/{direction}.png'
+		full_path = os.path.join(pathlib.Path(__file__).parent.parent.absolute(),f'graphics/weapons/{player.weapon}/{direction}.png')
 		self.image = pygame.image.load(full_path).convert_alpha()
 		
 		# placement

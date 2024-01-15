@@ -22,6 +22,8 @@ class Upgrade:
 		self.selection_time = None
 		self.can_move = True
 
+		self.is_toggled = False
+
 	def input(self):
 		keys = pygame.key.get_pressed()
 

@@ -35,10 +35,6 @@ class Menu:
 				self.selection_index[1] -= 1
 				self.can_move = False
 				self.selection_time = pygame.time.get_ticks()
-            elif keys[pygame.K_UP] and self.selection_index < self.menu_length_y - 1:
-                self.selection_index[2] += 1
-                self.can_move = False
-                self.selection_time = pygame.time.get_ticks()
 			if keys[pygame.K_SPACE]:
 				self.can_move = False
 				self.selection_time = pygame.time.get_ticks()

@@ -6,7 +6,8 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "justMyCode": true
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

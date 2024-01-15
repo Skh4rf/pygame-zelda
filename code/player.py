@@ -1,4 +1,5 @@
 import pygame 
+import os, pathlib
 from settings import *
 from support import import_folder
 from entity import Entity
@@ -6,7 +7,7 @@ from entity import Entity
 class Player(Entity):
 	def __init__(self,pos,groups,obstacle_sprites,create_attack,destroy_attack,create_magic):
 		super().__init__(groups)
-		self.image = pygame.image.load('../graphics/test/player.png').convert_alpha()
+		self.image = pygame.image.load(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'graphics/test/player.png')).convert_alpha()
 		self.rect = self.image.get_rect(topleft = pos)
 		self.hitbox = self.rect.inflate(-6,HITBOX_OFFSET['player'])
 
@@ -67,6 +68,16 @@ class Player(Entity):
 	def input(self):
 		if not self.attacking:
 			keys = pygame.key.get_pressed()
+			if keys[pygame.K_t]:
+				v_surface = pygame.display.get_surface()
+				v_height = v_surface.get_size()[1]
+				v_width = v_surface.get_size()[0]
+				v_rect = pygame.Rect(0, 0, v_width, v_height)
+
+				color = TEXT_COLOR_SELECTED
+				title_surf = pygame.font.Font(UI_FONT, UI_FONT_SIZE).render(str(v_width) + " " + str(v_height), False,color)
+				title_rect = title_surf.get_rect(midtop = pygame.math.Vector2(v_width/2,v_height/2))
+				pygame.display.get_surface().blit(title_surf, title_rect)
 
 			# movement input
 			if keys[pygame.K_UP]:
