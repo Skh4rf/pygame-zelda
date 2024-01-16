@@ -17,6 +17,7 @@ from mainmenu import MainMenu
 
 class Level:
 	def __init__(self, settings):
+		self.settings = settings
 
 		# get the display surface 
 		self.display_surface = pygame.display.get_surface()
@@ -30,11 +31,12 @@ class Level:
 		self.current_attack = None
 		self.attack_sprites = pygame.sprite.Group()
 		self.attackable_sprites = pygame.sprite.Group()
+		self.enemies = list()
 
 		# sprite setup
 		self.create_map()
+
 		# user interface 
-		self.settings = settings
 		self.ui = UI()
 		self.upgrade = Upgrade(self.player)
 		self.mainmenu = MainMenu(self.player, self.settings)
@@ -42,6 +44,8 @@ class Level:
 		# particles
 		self.animation_player = AnimationPlayer()
 		self.magic_player = MagicPlayer(self.animation_player)
+
+		
 
 	def create_map(self):
 		layouts = {
@@ -89,6 +93,7 @@ class Level:
 								elif col == '391': monster_name = 'spirit'
 								elif col == '392': monster_name ='raccoon'
 								else: monster_name = 'squid'
+								self.enemies.append(
 								Enemy(
 									monster_name,
 									(x,y),
@@ -96,7 +101,7 @@ class Level:
 									self.obstacle_sprites,
 									self.damage_player,
 									self.trigger_death_particles,
-									self.add_exp)
+									self.add_exp))
 
 	def create_attack(self):
 		

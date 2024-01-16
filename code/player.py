@@ -53,7 +53,10 @@ class Player(Entity):
 
 		# import a sound
 		self.weapon_attack_sound = pygame.mixer.Sound(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'audio/sword.wav'))
-		self.weapon_attack_sound.set_volume(0.4)
+		self.weapon_attack_sound.set_volume(INITIAL_VOLUME)
+
+	def update_volume(self, volume):
+		self.weapon_attack_sound.set_volume(volume)
 
 	def import_player_assets(self):
 		character_path = os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'graphics/player/')

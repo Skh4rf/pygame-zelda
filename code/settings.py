@@ -4,7 +4,7 @@ import os, pathlib
 class Settings:
 	def __init__(self, game):
 		self.game = game
-		self._game_volume = 0.5
+		self._game_volume = INITIAL_VOLUME
 
 	@property
 	def game_volume(self):
@@ -17,6 +17,12 @@ class Settings:
 
 	def on_game_volume_change(self):
 		self.game.main_sound.set_volume(self._game_volume)
+		self.game.level.player.update_volume(self._game_volume)
+		self.game.level.magic_player.update_volume(self.game_volume)
+		for enemy in self.game.level.enemies:
+			enemy.update_volume(self.game_volume)
+
+INITIAL_VOLUME = 0.5
 
 # game setup
 WIDTH    = 1280	

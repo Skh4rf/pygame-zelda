@@ -9,6 +9,12 @@ class MagicPlayer:
 		'heal': pygame.mixer.Sound(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'audio/heal.wav')),
 		'flame':pygame.mixer.Sound(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'audio/Fire.wav'))
 		}
+		for sound_name, sound_object in self.sounds.items():
+			sound_object.set_volume(INITIAL_VOLUME)
+
+	def update_volume(self, volume):
+		for sound_name, sound_object in self.sounds.items():
+			sound_object.set_volume(volume)
 
 	def heal(self,player,strength,cost,groups):
 		if player.energy >= cost:

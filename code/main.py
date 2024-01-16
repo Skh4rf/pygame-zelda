@@ -17,7 +17,7 @@ class Game:
 
 		# sound 
 		self.main_sound = pygame.mixer.Sound(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'audio/main.ogg'))
-		self.main_sound.set_volume(0.5)
+		self.main_sound.set_volume(INITIAL_VOLUME)
 		self.main_sound.play(loops = -1)
 
 	def run(self):
