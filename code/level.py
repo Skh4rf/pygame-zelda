@@ -16,7 +16,7 @@ from upgrade import Upgrade
 from mainmenu import MainMenu
 
 class Level:
-	def __init__(self):
+	def __init__(self, settings):
 
 		# get the display surface 
 		self.display_surface = pygame.display.get_surface()
@@ -33,11 +33,11 @@ class Level:
 
 		# sprite setup
 		self.create_map()
-
 		# user interface 
+		self.settings = settings
 		self.ui = UI()
 		self.upgrade = Upgrade(self.player)
-		self.mainmenu = MainMenu(self.player)
+		self.mainmenu = MainMenu(self.player, self.settings)
 
 		# particles
 		self.animation_player = AnimationPlayer()

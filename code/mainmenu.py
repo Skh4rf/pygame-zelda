@@ -26,7 +26,6 @@ class Quit(MenuItem):
         self.index = (self.index - 1) % len(self.options)
 
     def apply_selection(self):
-        selected_weapon = self.get_current_value()
         pygame.quit()
 
 class Difficulty(MenuItem):
@@ -48,26 +47,31 @@ class Difficulty(MenuItem):
         print(f"Selected Magic: {selected_magic}")
 
 class Volume(MenuItem):
-    def __init__(self, player):
+    def __init__(self, player, settings):
+        self.settings = settings
         super().__init__('Volume:', list([0,1,2,3,4,5,6,7,8,9,10]))
         self.player = player
+        self.index = 5
 
     def next_option(self):
         if self.index < len(self.options)-1:
             self.index = (self.index + 1)
+            self.settings.game_volume = self.options[self.index]/10
 
     def prev_option(self):
         if self.index > 0:
             self.index = (self.index - 1)
+            self.settings.game_volume = self.options[self.index]/10
 
     def apply_selection(self):
         #implement code here
         print(f"Volume: {self.get_current_value()}")
 
 class MainMenu:
-    def __init__(self, player):
+    def __init__(self, player, settings):
+        self.settings = settings
         self.menu_items = [
-            Volume(player),
+            Volume(player, settings),
             Difficulty(player),
             Quit(player)
         ]

@@ -1,6 +1,10 @@
 import pygame
 import os, pathlib
 
+class Settings:
+	def __init__(self):
+		self.game_volume = 0.5
+
 # game setup
 WIDTH    = 1280	
 HEIGTH   = 720
