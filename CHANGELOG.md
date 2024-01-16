@@ -14,3 +14,5 @@
 - Implementing game_volume property with custom setter to increase game performance (f64ac1179eef6539c3c44c65c91a57cbfde20235)
 - Improving the game_volume control with custom property setter for higher integrity (e7dde174d7020123312dfb74e36081039de2f581)
 - Implementing difficulty system (39ac8e0803baffab0eb3aacfdb6aee2100c96493)
+- adding Changelog (7030de99e81ede29b976aa5d313cf74b31d81547)
+- adding Keyboard-Layout (newest)
