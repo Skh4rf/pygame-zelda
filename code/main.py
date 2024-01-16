@@ -12,7 +12,7 @@ class Game:
 		pygame.display.set_caption('Zelda')
 		self.clock = pygame.time.Clock()
 
-		self.settings = Settings()
+		self.settings = Settings(self)
 		self.level = Level(self.settings)
 
 		# sound 
@@ -33,7 +33,6 @@ class Game:
 					if event.key==pygame.K_ESCAPE and not self.level.upgrade.is_toggled:
 						self.level.mainmenu.is_toggled = not self.level.mainmenu.is_toggled
 						self.level.toggle_menu()
-			self.main_sound.set_volume(self.settings.game_volume)
 			self.screen.fill(WATER_COLOR)
 			self.level.run()
 			pygame.display.update()

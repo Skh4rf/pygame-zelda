@@ -2,8 +2,21 @@ import pygame
 import os, pathlib
 
 class Settings:
-	def __init__(self):
-		self.game_volume = 0.5
+	def __init__(self, game):
+		self.game = game
+		self._game_volume = 0.5
+
+	@property
+	def game_volume(self):
+		return self._game_volume
+	
+	@game_volume.setter
+	def game_volume(self, value):
+		self._game_volume = value
+		self.on_game_volume_change()
+
+	def on_game_volume_change(self):
+		self.game.main_sound.set_volume(self._game_volume)
 
 # game setup
 WIDTH    = 1280	
