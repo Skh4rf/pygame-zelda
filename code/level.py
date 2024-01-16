@@ -13,7 +13,7 @@ from enemy import Enemy
 from particles import AnimationPlayer
 from magic import MagicPlayer
 from upgrade import Upgrade
-from gamemenu import GameMenu
+from mainmenu import MainMenu
 
 class Level:
 	def __init__(self):
@@ -37,7 +37,7 @@ class Level:
 		# user interface 
 		self.ui = UI()
 		self.upgrade = Upgrade(self.player)
-		self.gamemenu = GameMenu(self.player)
+		self.mainmenu = MainMenu(self.player)
 
 		# particles
 		self.animation_player = AnimationPlayer()
@@ -153,8 +153,8 @@ class Level:
 		if self.game_paused:
 			if self.upgrade.is_toggled:
 				self.upgrade.display() # Show the Upgrade Menu (Ingame-Menu)
-			elif self.gamemenu.is_toggled:
-				self.gamemenu.display() # Show the Settings Menu
+			elif self.mainmenu.is_toggled:
+				self.mainmenu.display() # Show the Settings Menu
 
 		else:
 			self.visible_sprites.update()

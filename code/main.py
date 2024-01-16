@@ -26,11 +26,11 @@ class Game:
 					pygame.quit()
 					sys.exit()
 				if event.type == pygame.KEYDOWN:
-					if event.key == pygame.K_m & self.level.gamemenu.is_toggled==False:
+					if event.key == pygame.K_m and not self.level.mainmenu.is_toggled:
 						self.level.upgrade.is_toggled = not self.level.upgrade.is_toggled
 						self.level.toggle_menu()
-					if event.key==pygame.K_ESCAPE & self.level.upgrade.is_toggled==False:
-						self.level.gamemenu.is_toggled = not self.level.gamemenu.is_toggled
+					if event.key==pygame.K_ESCAPE and not self.level.upgrade.is_toggled:
+						self.level.mainmenu.is_toggled = not self.level.mainmenu.is_toggled
 						self.level.toggle_menu()
 			self.screen.fill(WATER_COLOR)
 			self.level.run()
