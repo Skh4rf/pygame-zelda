@@ -27,7 +27,7 @@ class Enemy(Entity):
 		self.health = monster_info['health']
 		self.exp = monster_info['exp']
 		self.speed = monster_info['speed']
-		self.attack_damage = monster_info['damage']
+		self.attack_damage = monster_info['damage']*INITIAL_DIFFICULTY
 		self.resistance = monster_info['resistance']
 		self.attack_radius = monster_info['attack_radius']
 		self.notice_radius = monster_info['notice_radius']
@@ -58,6 +58,9 @@ class Enemy(Entity):
 		self.death_sound.set_volume(volume)
 		self.hit_sound.set_volume(volume)
 		self.attack_sound.set_volume(volume)
+
+	def update_difficulty(self, factor):
+		self.attack_damage = monster_data[self.monster_name]['damage']*factor
 
 	def import_graphics(self,name):
 		self.animations = {'idle':[],'move':[],'attack':[]}

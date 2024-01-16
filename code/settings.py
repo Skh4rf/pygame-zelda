@@ -5,6 +5,7 @@ class Settings:
 	def __init__(self, game):
 		self.game = game
 		self._game_volume = INITIAL_VOLUME
+		self._game_difficulty = INITIAL_DIFFICULTY
 
 	@property
 	def game_volume(self):
@@ -22,7 +23,21 @@ class Settings:
 		for enemy in self.game.level.enemies:
 			enemy.update_volume(self.game_volume)
 
-INITIAL_VOLUME = 0.5
+	@property
+	def game_difficulty(self):
+		return self._game_difficulty
+	
+	@game_difficulty.setter
+	def game_difficulty(self, value):
+		self._game_difficulty = value
+		self.on_game_difficulty_change()
+
+	def on_game_difficulty_change(self):
+		for enemy in self.game.level.enemies:
+			enemy.update_difficulty(self.game_difficulty)
+
+INITIAL_VOLUME = 0.1 # 0...1 only change in 1/10 steps
+INITIAL_DIFFICULTY = 1 # ["Easy",0.25], ["Medium",0.5], ["Hard",1], ["Extreme",2]
 
 # game setup
 WIDTH    = 1280	
