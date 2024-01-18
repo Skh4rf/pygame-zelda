@@ -16,4 +16,5 @@
 - Implementing difficulty system (39ac8e0803baffab0eb3aacfdb6aee2100c96493)
 - adding Changelog (7030de99e81ede29b976aa5d313cf74b31d81547)
 - adding Keyboard-Layout (7b5e09af9f140d6ea8ce4c15ea08d595212cfd18)
-- adding general game info like weapons, spells and enemies to README.md (newest)
+- adding general game info like weapons, spells and enemies to README.md (b619f4feddaa4babcc15f4b69d0d4011a602adc2)
+- adding a death screen so that the game has an possible end (newest)

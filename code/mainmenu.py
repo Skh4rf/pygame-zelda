@@ -95,8 +95,6 @@ class MainMenu:
         self.selection_time = None
         self.can_move = True
 
-        
-
     def handle_input(self):
         keys = pygame.key.get_pressed()
 

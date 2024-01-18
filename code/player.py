@@ -10,6 +10,8 @@ class Player(Entity):
 		self.image = pygame.image.load(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'graphics/test/player.png')).convert_alpha()
 		self.rect = self.image.get_rect(topleft = pos)
 		self.hitbox = self.rect.inflate(-6,HITBOX_OFFSET['player'])
+		self.display_surface = pygame.display.get_surface()
+		self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE+10)
 
 		# graphics setup
 		self.import_player_assets()
@@ -41,7 +43,7 @@ class Player(Entity):
 		self.stats = {'health': 100,'energy':60,'attack': 10,'magic': 4,'speed': 5}
 		self.max_stats = {'health': 300, 'energy': 140, 'attack': 20, 'magic' : 10, 'speed': 10}
 		self.upgrade_cost = {'health': 100, 'energy': 100, 'attack': 100, 'magic' : 100, 'speed': 100}
-		self.health = self.stats['health'] * 0.5
+		self._health = self.stats['health'] * 0.5
 		self.energy = self.stats['energy'] * 0.8
 		self.exp = 5000
 		self.speed = self.stats['speed']
@@ -55,8 +57,49 @@ class Player(Entity):
 		self.weapon_attack_sound = pygame.mixer.Sound(os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'audio/sword.wav'))
 		self.weapon_attack_sound.set_volume(INITIAL_VOLUME)
 
-	def update_volume(self, volume):
-		self.weapon_attack_sound.set_volume(volume)
+	@property
+	def health(self):
+		return self._health
+	
+	@health.setter
+	def health(self, value):
+		self._health = value
+		if self._health <= 1:
+			self.show_deathscreen()
+
+	def show_deathscreen(self):
+		# Overlay for Deathscreen
+		death_overlay = pygame.Surface((WIDTH, HEIGTH), pygame.SRCALPHA)
+		death_overlay.fill((255, 0, 0, 160))
+		self.display_surface.blit(death_overlay, (0, 0))
+
+		# Text for Deathscreen
+		death_text = self.font.render("GAME OVER!", True, (255, 255, 255))  # Weißer Text
+		death_text_rect = death_text.get_rect(center=(WIDTH // 2, HEIGTH // 2))
+		self.display_surface.blit(death_text, death_text_rect)
+
+		pygame.display.flip()
+
+		pygame.time.wait(3000)
+		
+		for i in range(3, 0, -1):
+			## Hintergrund löschen
+			self.display_surface.fill((0, 0, 0))  # Schwarzer Hintergrund (du kannst die Farbe anpassen)
+
+			# Overlay für den Deathscreen
+			death_overlay = pygame.Surface((WIDTH, HEIGTH), pygame.SRCALPHA)
+			death_overlay.fill((255, 0, 0, 160))
+			self.display_surface.blit(death_overlay, (0, 0))
+
+			# Text für den Deathscreen
+			death_text = self.font.render(f"Game closes in: {i}", True, (255, 255, 255))  # Weißer Text
+			death_text_rect = death_text.get_rect(center=(WIDTH // 2, HEIGTH // 2))
+			self.display_surface.blit(death_text, death_text_rect)
+
+			pygame.display.flip()
+
+			pygame.time.wait(1000)
+		pygame.quit()
 
 	def import_player_assets(self):
 		character_path = os.path.join(pathlib.Path(__file__).parent.parent.absolute(),'graphics/player/')
