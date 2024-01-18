@@ -67,6 +67,9 @@ class Player(Entity):
 		if self._health <= 1:
 			self.show_deathscreen()
 
+	def update_volume(self, volume):
+		self.weapon_attack_sound.set_volume(volume)
+		
 	def show_deathscreen(self):
 		# Overlay for Deathscreen
 		death_overlay = pygame.Surface((WIDTH, HEIGTH), pygame.SRCALPHA)
